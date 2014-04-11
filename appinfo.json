@@ -1,0 +1,18 @@
+{
+    "versionLabel": "1.0",
+    "uuid": "478e9c6e-595f-4bb3-bc7c-501de859fc21",
+    "appKeys": {},
+    "longName": "Pebble Man",
+    "versionCode": 1,
+    "capabilities": [
+        ""
+    ],
+    "shortName": "Pebble Man",
+    "companyName": "ry.sc.anderson@gmail.com",
+    "watchapp": {
+        "watchface": false
+    },
+    "resources": {
+        "media": []
+    }
+}
