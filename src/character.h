@@ -1,7 +1,6 @@
 typedef struct {
   int class; // FIGHTER = 0; ROGUE = 1; MAGE = 2
   int level;
-  int maxhealth;
   int health;
   int mana;
   int p;
@@ -15,3 +14,5 @@ typedef struct {
 int getAC(Character c);
 int getDamage(Character c);
 char* setClassname(Character c);
+void levelUp(Character* c);
+char* getSkill(Character c, int i);

@@ -116,7 +116,7 @@ Window* create_start_window(){
 
 	// Set the text, font, and text alignment
 
-  text_layer_set_text(text_layer, "Welcome to \nPebbleMan");
+  text_layer_set_text(text_layer, "\nWelcome to \nRPebbleG");
 	text_layer_set_font(text_layer, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
 	text_layer_set_text_alignment(text_layer, GTextAlignmentCenter);
 
