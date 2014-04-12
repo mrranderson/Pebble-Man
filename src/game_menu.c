@@ -17,6 +17,11 @@
   
 Window *window;
 Window *character_window;
+Window *train_window;
+
+int counter;
+TextLayer* train_text_layer;
+
 SimpleMenuLayer *game_menu_layer;
 SimpleMenuSection game_menu_sections[NUM_GAME_MENU_SECTIONS];
 static SimpleMenuItem game_menu_items[NUM_GAME_MENU_ITEMS];
@@ -29,12 +34,60 @@ SimpleMenuItem class_menu_items[NUM_CLASS_MENU_ITEMS];
 
 Character character;
 
+
+void accel_tap_handler(AccelAxisType axis, int32_t direction) {
+    character.xp += 1;
+    //layer_mark_dirty(text_layer_get_layer(train_text_layer));
+    //APP_LOG(0, "%d", character.level);
+}
+
+void accel_data_handler(AccelData *data, uint32_t num_samples) {
+    counter+=1;
+  if(counter == 100) {
+    counter = 0;
+    character.xp+=1;
+    if(character.xp == 10*(character.level+1)){
+      levelUp(&character);
+      character.xp = 0;
+    }
+    //APP_LOG(0, "%d", character.xp);
+  }
+    //layer_mark_dirty(text_layer_get_layer(train_text_layer));
+    
+}
+
 void game_menu_select_callback(int index, void *ctx) {
   //Train
   if(index == 0){
     //Train by walking around in the real world
     //Accelerometer
-    levelUp(&character);
+    train_window = window_create();
+    window_set_window_handlers(train_window, (WindowHandlers) {
+        //.load = window_load,
+        //.appear = window_appear,
+        //.disappear = window_disappear,
+        .unload = deinit_train_window,
+    });
+    train_text_layer = text_layer_create(GRect(0,0,144,154));
+    char* h = (char*)malloc(128*sizeof(char));
+    snprintf(h, 128, "\n\nTRAINING");
+    
+    text_layer_set_text(train_text_layer, h);
+	  text_layer_set_font(train_text_layer, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
+	  text_layer_set_text_alignment(train_text_layer, GTextAlignmentCenter);
+    
+    //layer_set_update_proc(text_layer_get_layer(train_text_layer), train_update_proc);
+    
+    layer_add_child(window_get_root_layer(train_window), text_layer_get_layer(train_text_layer));
+    
+    counter = 0;
+    
+    accel_data_service_subscribe(1, accel_data_handler);
+    accel_tap_service_subscribe(accel_tap_handler);
+    
+    free(h);
+    
+    window_stack_push(train_window, true);
   }
   //Battle
   else if(index == 1){
@@ -56,9 +109,11 @@ void game_menu_select_callback(int index, void *ctx) {
     
     character_text_layer = text_layer_create(max_text_bounds);
     char* h = (char*)malloc(256*sizeof(char));
-    snprintf(h, 256, "ME\n%s-%d\nHP: %d  Mana: %d\nP: %d   D: %d   S: %d\nAC: 32 \nDam: 56-98 \n------------------------\nAbilities: \n%s \n%s \n%s \n%s \n%s \n%s \n%s \n%s \n%s \n%s", 
+    snprintf(h, 256, "ME\n%s-%d\nHP: %d  Mana: %d\nP: %d   D: %d   S: %d\nAC: %d \nDam: %d \n------------------------\nAbilities: \n%s \n%s \n%s \n%s \n%s \n%s \n%s \n%s \n%s \n%s", 
              setClassname(character), character.level, character.health, character.mana, character.p, character.d, character.s,
-             getSkill(character, 0), getSkill(character, 1), getSkill(character, 2), getSkill(character, 3), getSkill(character, 4), getSkill(character, 5), getSkill(character, 6), getSkill(character, 7), getSkill(character, 8), getSkill(character, 9));
+             character.ac, character.damage,
+             getSkill(character, 0), getSkill(character, 1), getSkill(character, 2), getSkill(character, 3), getSkill(character, 4), 
+             getSkill(character, 5), getSkill(character, 6), getSkill(character, 7), getSkill(character, 8), getSkill(character, 9));
     text_layer_set_text(character_text_layer, h);
     text_layer_set_font(character_text_layer, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
 	  text_layer_set_text_alignment(character_text_layer, GTextAlignmentLeft);
@@ -124,7 +179,7 @@ void game_menu_create(){
 }
 
 void class_menu_select_callback(int index, void *ctx){
-  character = (Character){index, 0, 0, 0, 0, 0, 0, 0, 0};
+  character = (Character){index, 0, 0, 0, 0, 0, 0, 0, 0, 0};
   levelUp(&character);
   simple_menu_layer_destroy(class_menu_layer);
   game_menu_create();    
@@ -191,6 +246,8 @@ Window* create_game_window(bool cont){
       character.d = persist_read_int(D);
     if(persist_exists(S))
       character.s = persist_read_int(S);
+    character.damage = getDamage(character);
+    character.ac = getAC(character);
 
     game_menu_create();
     
@@ -217,6 +274,12 @@ void save_data(){
   int x = persist_read_int(CLASS);
   snprintf(log, 6, "%d", x);
   APP_LOG(0, log);
+}
+
+void deinit_train_window() {
+  accel_tap_service_unsubscribe();
+  accel_data_service_unsubscribe();
+  window_destroy(train_window);
 }
 
 void deinit_character_window(){
