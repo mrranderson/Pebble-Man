@@ -1,5 +1,6 @@
 #include "pebble.h"
 #include "main_menu.h"
+#include "game_menu.h"
 #include "character.h"
   
 #define NUM_MENU_SECTIONS 1
@@ -36,26 +37,29 @@ void menu_select_callback(int index, void *ctx) {
   // Mark the layer to be updated
   //layer_mark_dirty(simple_menu_layer_get_layer(simple_menu_layer));
   //Continue
-  Character character = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Onion Knight", };
-  game_window = window_create();//create_game_window();
+  //Character character = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Onion Knight", };
+  //game_window = window_create();//create_game_window();
   if(index == 0){
+    game_window = create_game_window(true);
     //launch new window
     //load persisted data
+    /*
     TextLayer* char_text_layer = text_layer_create(GRect(0, 0, 144, 154));
     char* h = (char*)malloc(128*sizeof(char));
     snprintf(h, 128, "ME         Fighter-33\nHP: %d      Mana: 42 \nP: 42   D: 32   S: 33\nAC: 32 \nDam: 56-98", character.health);
   	text_layer_set_text(char_text_layer, h);
   	text_layer_set_font(char_text_layer, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
   	text_layer_set_text_alignment(char_text_layer, GTextAlignmentLeft);
+    */
 	
-	// Add the text layer to the window
-	layer_add_child(window_get_root_layer(game_window), text_layer_get_layer(char_text_layer));
+	  // Add the text layer to the window
+	  //layer_add_child(window_get_root_layer(game_window), text_layer_get_layer(char_text_layer));
 
   }
   //New game
   else if(index == 1){
     //launch new window
-    
+    game_window = create_game_window(false);
   }
   //Help
   else if(index == 2){
@@ -117,7 +121,6 @@ void main_menu_create(){
   };
 
   simple_menu_layer = simple_menu_layer_create(bounds, window, menu_sections, NUM_MENU_SECTIONS, NULL);
-
 }
 
 
@@ -140,8 +143,6 @@ Window* create_start_window(){
 	// Push the window
 	//window_stack_push(window, true);
   return window;
-	// App Logging!
-	APP_LOG(APP_LOG_LEVEL_DEBUG, "Just pushed a window!");
 }
 
 void deinit_start_window(){
