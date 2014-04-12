@@ -42,7 +42,7 @@ void levelUp(Character* c){
 
 char* getSkill(Character c, int i) {
  char *f[10] = { "1", "2", "Aim", "3", "Focus", "4", "First aid", "5", "Paragon", "6" };
- if (c.level == 0) {
+ if (c.class == 0) {
    f[0] = "Flurry";
    f[1] = "Warm Up";
    f[3] = "Rising Fury";
@@ -50,7 +50,7 @@ char* getSkill(Character c, int i) {
    f[7] = "Retaliate";
    f[9] = "Go For the Kill";
  }
- else if (c.level == 1) {
+ else if (c.class == 1) {
    f[0] = "Disarm";
    f[1] = "Low Blow";
    f[3] = "Spellthief";
