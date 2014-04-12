@@ -182,7 +182,7 @@ void game_menu_create(){
 }
 
 void class_menu_select_callback(int index, void *ctx){
-  character = (Character){index, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+  character = (Character){index, 0, 0, 0, 0, 4, 4, 4, 0, 0};
   levelUp(&character);
   simple_menu_layer_destroy(class_menu_layer);
   game_menu_create();    

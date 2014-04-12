@@ -34,6 +34,8 @@ void levelUp(Character* c){
     c->s++;
   c->damage = getDamage(*c);
   c->ac = getAC(*c);
+  c->health=c->p + 2;
+  c->mana=c->s + 2;
 }
 
 char* getSkill(Character c, int i) {
