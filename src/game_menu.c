@@ -7,13 +7,13 @@
 #define NUM_GAME_MENU_ITEMS 4
 #define NUM_CLASS_MENU_SECTIONS 1
 #define NUM_CLASS_MENU_ITEMS 3
-#define CLASS 0
-#define LEVEL 1
-#define HEALTH 2
-#define MANA 3
-#define P 4
-#define D 5
-#define S 6
+#define CLASS 678
+#define LEVEL 679
+#define HEALTH 680
+#define MANA 681
+#define P 682
+#define D 683
+#define S 684
   
 Window *window;
 Window *character_window;
@@ -21,6 +21,8 @@ SimpleMenuLayer *game_menu_layer;
 SimpleMenuSection game_menu_sections[NUM_GAME_MENU_SECTIONS];
 static SimpleMenuItem game_menu_items[NUM_GAME_MENU_ITEMS];
 
+TextLayer* character_text_layer;
+ScrollLayer* scroll;
 SimpleMenuLayer *class_menu_layer;
 SimpleMenuSection class_menu_sections[NUM_CLASS_MENU_SECTIONS];
 SimpleMenuItem class_menu_items[NUM_CLASS_MENU_ITEMS];
@@ -37,13 +39,15 @@ void game_menu_select_callback(int index, void *ctx) {
   //Battle
   else if(index == 1){
     //Fight a randomly generated enemy based on the current difficulty
+    Character enemy;
+    enemy.class
   }
   //Character
   else if(index == 2){
     //Display character stats
     character_window = window_create();
-    ScrollLayer *scroll = scroll_layer_create(layer_get_frame(window_get_root_layer(character_window)));
-    TextLayer *character_text_layer = text_layer_create(GRect(0, 0, 144, 154));
+    scroll = scroll_layer_create(layer_get_frame(window_get_root_layer(character_window)));
+    character_text_layer = text_layer_create(GRect(0, 0, 144, 154));
 
     char* h = (char*)malloc(128*sizeof(char));
     snprintf(h, 128, "ME\n%s-%d\nHP: %d  Mana: %d\nP: %d   D: %d   S: %d\nAC: 32 \nDam: 56-98", 
@@ -111,7 +115,8 @@ void game_menu_create(){
 }
 
 void class_menu_select_callback(int index, void *ctx){
-  character.class = index;  
+  character = (Character){index, 0, 0, 0, 0, 0, 0, 0, 0};
+  levelUp(&character);
   simple_menu_layer_destroy(class_menu_layer);
   game_menu_create();    
   layer_add_child(window_get_root_layer(window), simple_menu_layer_get_layer(game_menu_layer));
@@ -161,20 +166,22 @@ Window* create_game_window(bool cont){
     layer_add_child(window_get_root_layer(window), simple_menu_layer_get_layer(class_menu_layer));
   }
   else{
-    if(persist_exists(CLASS))
+    if(persist_exists(CLASS)){
       character.class = persist_read_int(CLASS);
+      APP_LOG(0, "data is persisted");
+    }
     if(persist_exists(LEVEL))
       character.level = persist_read_int(LEVEL);
     if(persist_exists(HEALTH))
-      character.level = persist_read_int(HEALTH);
+      character.health = persist_read_int(HEALTH);
     if(persist_exists(MANA))
-      character.level = persist_read_int(MANA);
+      character.mana = persist_read_int(MANA);
     if(persist_exists(P))
-      character.level = persist_read_int(P);
+      character.p = persist_read_int(P);
     if(persist_exists(D))
-      character.level = persist_read_int(D);
+      character.d = persist_read_int(D);
     if(persist_exists(S))
-      character.level = persist_read_int(S);
+      character.s = persist_read_int(S);
 
     game_menu_create();
     
@@ -186,16 +193,27 @@ Window* create_game_window(bool cont){
 
 void save_data(){
   APP_LOG(0, "SAVING");
-  persist_write_int(CLASS, character.class);
-  persist_write_int(LEVEL, character.level);
+  persist_delete(CLASS);
+  persist_write_int(CLASS, character.class);//character.class);
+  bool write = persist_write_int(LEVEL, character.level);
+  //if(write)
+    //APP_LOG(0, "TRUE");
+  persist_delete(HEALTH);
   persist_write_int(HEALTH, character.health);
   persist_write_int(MANA, character.mana);
   persist_write_int(P, character.p);
   persist_write_int(D, character.d);
   persist_write_int(S, character.s);
+  char* log = (char*)malloc(6*sizeof(char*));
+  int x = persist_read_int(CLASS);
+  snprintf(log, 6, "%d", x);
+  APP_LOG(0, log);
 }
 
 void deinit_character_window(){
+  save_data();
+  text_layer_destroy(character_text_layer);
+  scroll_layer_destroy(scroll);
   window_destroy(character_window);
 }
 

@@ -138,7 +138,8 @@ Window* create_start_window(){
 }
 
 void deinit_start_window(){
-	text_layer_destroy(text_layer);
+  save_data();
+	//text_layer_destroy(text_layer);
 	simple_menu_layer_destroy(simple_menu_layer);
 	window_destroy(window);
 }

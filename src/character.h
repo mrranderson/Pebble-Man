@@ -1,7 +1,6 @@
 typedef struct {
   int class; // FIGHTER = 0; ROGUE = 1; MAGE = 2
   int level;
-  int xp;
   int health;
   int mana;
   int p;
