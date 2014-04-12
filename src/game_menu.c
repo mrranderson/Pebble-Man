@@ -43,25 +43,34 @@ void game_menu_select_callback(int index, void *ctx) {
     //enemy.class
   }
   //Character
-  else if(index == 2){
+  else if(index == 2){    
     //Display character stats
     character_window = window_create();
-    scroll = scroll_layer_create(layer_get_frame(window_get_root_layer(character_window)));
-    character_text_layer = text_layer_create(GRect(0, 0, 144, 154));
-
-    char* h = (char*)malloc(128*sizeof(char));
-    snprintf(h, 128, "ME\n%s-%d\nHP: %d  Mana: %d\nP: %d   D: %d   S: %d\nAC: 32 \nDam: 56-98", 
-             setClassname(character), character.level, character.health, character.mana, character.p, character.d, character.s);
+    TextLayer *character_text_layer = text_layer_create(GRect(0, 0, 144, 154));
+    Layer *window_layer = window_get_root_layer(character_window);
+    GRect bounds = layer_get_frame(window_layer);
+    GRect max_text_bounds = GRect(0, 0, bounds.size.w, 2000);
     
-    text_layer_set_text(character_text_layer, h);
-	  text_layer_set_font(character_text_layer, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
-	  text_layer_set_text_alignment(character_text_layer, GTextAlignmentLeft);
-
-    scroll_layer_add_child(scroll, text_layer_get_layer(character_text_layer));
-	  layer_add_child(window_get_root_layer(character_window), scroll_layer_get_layer(scroll));
+    ScrollLayer *scroll = scroll_layer_create(bounds);
     scroll_layer_set_click_config_onto_window(scroll, character_window);
     
-      window_set_window_handlers(character_window, (WindowHandlers) {
+    character_text_layer = text_layer_create(max_text_bounds);
+    char* h = (char*)malloc(256*sizeof(char));
+    snprintf(h, 256, "ME\n%s-%d\nHP: %d  Mana: %d\nP: %d   D: %d   S: %d\nAC: 32 \nDam: 56-98 \n------------------------\nAbilities: \n%s \n%s \n%s \n%s \n%s \n%s \n%s \n%s \n%s \n%s", 
+             setClassname(character), character.level, character.health, character.mana, character.p, character.d, character.s,
+             getSkill(character, 0), getSkill(character, 1), getSkill(character, 2), getSkill(character, 3), getSkill(character, 4), getSkill(character, 5), getSkill(character, 6), getSkill(character, 7), getSkill(character, 8), getSkill(character, 9));
+    text_layer_set_text(character_text_layer, h);
+    text_layer_set_font(character_text_layer, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
+	  text_layer_set_text_alignment(character_text_layer, GTextAlignmentLeft);
+    
+    GSize max_size = text_layer_get_content_size(character_text_layer);
+    text_layer_set_size(character_text_layer, max_size);
+    scroll_layer_set_content_size(scroll, GSize(bounds.size.w, max_size.h + 4));
+    scroll_layer_add_child(scroll, text_layer_get_layer(character_text_layer));
+
+	  layer_add_child(window_get_root_layer(character_window), scroll_layer_get_layer(scroll));
+    
+    window_set_window_handlers(character_window, (WindowHandlers) {
         //.load = window_load,
         //.appear = window_appear,
         //.disappear = window_disappear,
