@@ -39,8 +39,8 @@ void game_menu_select_callback(int index, void *ctx) {
   //Battle
   else if(index == 1){
     //Fight a randomly generated enemy based on the current difficulty
-    Character enemy;
-    enemy.class
+    //Character enemy;
+    //enemy.class
   }
   //Character
   else if(index == 2){
