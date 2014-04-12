@@ -69,11 +69,12 @@ void game_menu_select_callback(int index, void *ctx) {
         .unload = deinit_train_window,
     });
     train_text_layer = text_layer_create(GRect(0,0,144,154));
-    char* h = (char*)malloc(128*sizeof(char));
-    snprintf(h, 128, "\n\nTRAINING");
+    //char* h = (char*)malloc(128*sizeof(char));
+    //snprintf(h, 128, "\n\nTRAINING");
     
-    text_layer_set_text(train_text_layer, h);
-	  text_layer_set_font(train_text_layer, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
+    //text_layer_set_text(train_text_layer, h);
+	  text_layer_set_text(train_text_layer, "\n\nTRAINING");
+    text_layer_set_font(train_text_layer, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
 	  text_layer_set_text_alignment(train_text_layer, GTextAlignmentCenter);
     
     //layer_set_update_proc(text_layer_get_layer(train_text_layer), train_update_proc);
@@ -85,7 +86,7 @@ void game_menu_select_callback(int index, void *ctx) {
     accel_data_service_subscribe(1, accel_data_handler);
     accel_tap_service_subscribe(accel_tap_handler);
     
-    free(h);
+    //free(h);
     
     window_stack_push(train_window, true);
   }
@@ -117,6 +118,8 @@ void game_menu_select_callback(int index, void *ctx) {
     text_layer_set_text(character_text_layer, h);
     text_layer_set_font(character_text_layer, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
 	  text_layer_set_text_alignment(character_text_layer, GTextAlignmentLeft);
+    
+    //free(h);
     
     GSize max_size = text_layer_get_content_size(character_text_layer);
     text_layer_set_size(character_text_layer, max_size);
@@ -259,21 +262,24 @@ Window* create_game_window(bool cont){
 
 void save_data(){
   APP_LOG(0, "SAVING");
-  persist_delete(CLASS);
+  //persist_delete(CLASS);
   persist_write_int(CLASS, character.class);//character.class);
-  bool write = persist_write_int(LEVEL, character.level);
-  //if(write)
-    //APP_LOG(0, "TRUE");
-  persist_delete(HEALTH);
+  //persist_delete(LEVEL);
+  persist_write_int(LEVEL, character.level);
+  //persist_delete(HEALTH);
   persist_write_int(HEALTH, character.health);
+  //persist_delete(MANA);
   persist_write_int(MANA, character.mana);
+  //persist_delete(P);
   persist_write_int(P, character.p);
+  //persist_delete(D);
   persist_write_int(D, character.d);
+  //persist_delete(S);
   persist_write_int(S, character.s);
-  char* log = (char*)malloc(6*sizeof(char*));
-  int x = persist_read_int(CLASS);
-  snprintf(log, 6, "%d", x);
-  APP_LOG(0, log);
+  //char* log = (char*)malloc(6*sizeof(char*));
+  //int x = persist_read_int(CLASS);
+  //snprintf(log, 6, "%d", x);
+  //APP_LOG(0, log);
 }
 
 void deinit_train_window() {
