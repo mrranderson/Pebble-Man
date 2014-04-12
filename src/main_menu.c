@@ -37,24 +37,9 @@ void menu_select_callback(int index, void *ctx) {
   // Mark the layer to be updated
   //layer_mark_dirty(simple_menu_layer_get_layer(simple_menu_layer));
   //Continue
-  //Character character = {0, 0, 0, 0, 0, 0, 0, 0, 0, "Onion Knight", };
   //game_window = window_create();//create_game_window();
   if(index == 0){
     game_window = create_game_window(true);
-    //launch new window
-    //load persisted data
-    /*
-    TextLayer* char_text_layer = text_layer_create(GRect(0, 0, 144, 154));
-    char* h = (char*)malloc(128*sizeof(char));
-    snprintf(h, 128, "ME         Fighter-33\nHP: %d      Mana: 42 \nP: 42   D: 32   S: 33\nAC: 32 \nDam: 56-98", character.health);
-  	text_layer_set_text(char_text_layer, h);
-  	text_layer_set_font(char_text_layer, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
-  	text_layer_set_text_alignment(char_text_layer, GTextAlignmentLeft);
-    */
-	
-	  // Add the text layer to the window
-	  //layer_add_child(window_get_root_layer(game_window), text_layer_get_layer(char_text_layer));
-
   }
   //New game
   else if(index == 1){
@@ -65,6 +50,7 @@ void menu_select_callback(int index, void *ctx) {
   else if(index == 2){
     //launch new window
     //display general information
+    game_window = window_create();
     TextLayer *help_text_layer = text_layer_create(GRect(0, 0, 144, 154));
 
     text_layer_set_text(help_text_layer, "This is a help screen!\nFuck you!");
@@ -83,7 +69,6 @@ void menu_select_callback(int index, void *ctx) {
     
   }
   window_stack_push(game_window, true);
-
 }
 
 //Sets up the main menu layer
@@ -93,7 +78,7 @@ void main_menu_create(){
   
   main_menu_items[num_a_items++] = (SimpleMenuItem){
     .title = "Continue",
-    .subtitle = "New game if no saved game",
+    .subtitle = "New game if no save",
     .callback = menu_select_callback,
     //callback indicates what's executed when you select that item
   };
@@ -142,14 +127,18 @@ Window* create_start_window(){
 
 	// Push the window
 	//window_stack_push(window, true);
+    window_set_window_handlers(window, (WindowHandlers) {
+        //.load = window_load,
+        //.appear = window_appear,
+        //.disappear = window_disappear,
+        .unload = deinit_start_window
+    });
+
   return window;
 }
 
 void deinit_start_window(){
-  	// Destroy the text layer
 	text_layer_destroy(text_layer);
 	simple_menu_layer_destroy(simple_menu_layer);
-	// Destroy the window
 	window_destroy(window);
-
 }

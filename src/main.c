@@ -1,6 +1,7 @@
 #include <pebble.h>
 #include "main_menu.h"
 #include "character.h"
+#include "game_menu.h"
 
 Window* start_window;
 
@@ -10,7 +11,7 @@ void handle_init(void) {
 }
 
 void handle_deinit(void) {
-
+  deinit_game_window();
   deinit_start_window();
 	window_destroy(start_window);
 }
