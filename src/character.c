@@ -26,12 +26,14 @@ void levelUp(Character* c){
   c->s++;
   c->p++;
   c->d++;
-  if(c->class == 0)
-    c->p++;
-  if(c->class == 1)
-    c->d++;
-  if(c->class == 2)
-    c->s++;
+  if(c->level == 1 || c->level % 3 == 0) {
+    if(c->class == 0)
+      c->p++;
+    if(c->class == 1)
+      c->d++;
+    if(c->class == 2)
+      c->s++;
+  }
   c->damage = getDamage(*c);
   c->ac = getAC(*c);
   c->health=c->p + 2;

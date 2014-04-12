@@ -37,6 +37,10 @@ Character character;
 
 void accel_tap_handler(AccelAxisType axis, int32_t direction) {
     character.xp += 1;
+    if(character.xp == 5*(character.level+1)){
+      levelUp(&character);
+      character.xp = 0;
+    }
     //layer_mark_dirty(text_layer_get_layer(train_text_layer));
     //APP_LOG(0, "%d", character.level);
 }
@@ -46,7 +50,7 @@ void accel_data_handler(AccelData *data, uint32_t num_samples) {
   if(counter == 100) {
     counter = 0;
     character.xp+=1;
-    if(character.xp == 10*(character.level+1)){
+    if(character.xp == 5*(character.level+1)){
       levelUp(&character);
       character.xp = 0;
     }
