@@ -5,7 +5,7 @@
 #include "battle.h"
   
 #define NUM_GAME_MENU_SECTIONS 1
-#define NUM_GAME_MENU_ITEMS 4
+#define NUM_GAME_MENU_ITEMS 3
 #define NUM_CLASS_MENU_SECTIONS 1
 #define NUM_CLASS_MENU_ITEMS 3
 #define CLASS 678
@@ -20,9 +20,11 @@ Window *window;
 Window *character_window;
 Window *train_window;
 Window *battle_window;
+Window *travel_window;
 
 int counter;
 TextLayer* train_text_layer;
+TextLayer* travel_text_layer;
 
 SimpleMenuLayer *game_menu_layer;
 SimpleMenuSection game_menu_sections[NUM_GAME_MENU_SECTIONS];
@@ -59,8 +61,21 @@ void accel_data_handler(AccelData *data, uint32_t num_samples) {
     //APP_LOG(0, "%d", character.xp);
   }
     //layer_mark_dirty(text_layer_get_layer(train_text_layer));
-    
 }
+
+void travel_up_click_handler(ClickRecognizerRef recognizer, void *context) {
+  character.difficulty++;
+}
+
+void travel_down_click_handler(ClickRecognizerRef recognizer, void *context){
+  character.difficulty--;
+}
+
+void travel_config_provider(void *context) {
+  window_single_click_subscribe(BUTTON_ID_UP, travel_up_click_handler);
+  window_single_click_subscribe(BUTTON_ID_DOWN, travel_down_click_handler);
+ }
+
 
 void game_menu_select_callback(int index, void *ctx) {
   //Train
@@ -147,7 +162,21 @@ void game_menu_select_callback(int index, void *ctx) {
   else if(index == 3){
     //launch new window
     //come up with some settings
+    /*
+    travel_window = window_create();
+    Layer *window_layer = window_get_root_layer(travel_window);
+    GRect bounds = layer_get_frame(window_layer);
+
+    travel_text_layer = text_layer_create(bounds);
+    text_layer_set_text(character_text_layer, "Up to increase difficulty\nDown to decrease difficulty");
+    text_layer_set_font(character_text_layer, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
+	  text_layer_set_text_alignment(character_text_layer, GTextAlignmentCenter);
     
+    layer_add_child(window_layer, text_layer_get_layer(travel_text_layer));
+    window_set_click_config_provider(window, travel_config_provider);
+
+    window_stack_push(travel_window, true);
+    */
   }
   else{
     
@@ -173,11 +202,12 @@ void game_menu_create(){
     .title = "Character",
     .callback = game_menu_select_callback,
   };
-  
+  /*
   game_menu_items[num_a_items++] = (SimpleMenuItem){
     .title = "Travel",
     .callback = game_menu_select_callback,
   };
+  */
   
   game_menu_sections[0] = (SimpleMenuSection){
     .num_items = NUM_GAME_MENU_ITEMS,
@@ -288,6 +318,10 @@ void save_data(){
   //APP_LOG(0, log);
 }
 
+void deinit_travel_window(){
+  text_layer_destroy(travel_text_layer);
+  window_destroy(travel_window);
+}
 void deinit_train_window() {
   accel_tap_service_unsubscribe();
   accel_data_service_unsubscribe();
@@ -306,5 +340,4 @@ void deinit_game_window(){
 	simple_menu_layer_destroy(game_menu_layer);
 	// Destroy the window
 	window_destroy(window);
-
 }

@@ -236,8 +236,8 @@ void battle_menu_select_callback(int index, void *ctx){
     restore(&character, &backup);
     character.health++;
     character.xp += enemy.xp;
-    if(character.xp >= 100*character.level){
-      character.xp -= 100*character.level;
+    if(character.xp >= 10*character.level){
+      character.xp -= 10*character.level;
       levelUp(&character);
     }
     text_layer_set_text(battle_text_layer, "You Win.\nGain some experience.");
