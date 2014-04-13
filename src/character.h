@@ -9,6 +9,7 @@ typedef struct {
   int s;
   int ac;
   int damage;
+  int difficulty;
   //char* classname;
 } Character;
 

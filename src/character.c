@@ -41,31 +41,32 @@ void levelUp(Character* c){
 }
 
 char* getSkill(Character c, int i) {
- char *f[10] = { "1", "2", "Aim", "3", "Focus", "4", "First Aid", "5", "Paragon", "6" };
- if (c.class == 0) {
-   f[0] = "Flurry";
-   f[1] = "Warm Up";
-   f[3] = "Rising Fury";
-   f[5] = "Parry";
-   f[7] = "Retaliate";
-   f[9] = "Go For the Kill";
- }
- else if (c.class == 1) {
-   f[0] = "Disarm";
-   f[1] = "Low Blow";
-   f[3] = "Spellthief";
-   f[5] = "Evasion";
-   f[7] = "Disable";
-   f[9] = "Assassinate";
- }
- else {
-   f[0] = "Magic Missle";
-   f[1] = "Rock Blast";
-   f[3] = "Absorb";
-   f[5] = "Mana Shield";
-   f[7] = "Avalanche";
-   f[9] = "Disintegrate";
- }
- return f[i];
+  char *f[11] = { "Attack", "1", "2", "Aim", "3", "Focus", "4", "First Aid", "5", "Paragon", "6" };
+  if (c.class == 0) {
+    f[1] = "Flurry";
+    f[2] = "Warm Up";
+    f[4] = "Rising Fury";
+    f[6] = "Parry";
+    f[8] = "Retaliate";
+    f[10] = "Go For the Kill";
+  }
+  else if (c.class == 1) {
+    f[1] = "Disarm";
+    f[2] = "Low Blow";
+    f[4] = "Spellthief";
+    f[6] = "Evasion";
+    f[8] = "Disable";
+    f[10] = "Assassinate";
+  }
+  else {
+    f[1] = "Magic Missle";
+    f[2] = "Rock Blast";
+    f[4] = "Absorb";
+    f[6] = "Mana Shield";
+    f[8] = "Avalanche";
+    f[10] = "Disintegrate";
+  }
+  return f[i];
 }
+
 

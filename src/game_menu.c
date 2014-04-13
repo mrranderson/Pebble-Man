@@ -2,6 +2,7 @@
 #include "main_menu.h"
 #include "game_menu.h"
 #include "character.h"
+#include "battle.h"
   
 #define NUM_GAME_MENU_SECTIONS 1
 #define NUM_GAME_MENU_ITEMS 4
@@ -18,6 +19,7 @@
 Window *window;
 Window *character_window;
 Window *train_window;
+Window *battle_window;
 
 int counter;
 TextLayer* train_text_layer;
@@ -97,8 +99,8 @@ void game_menu_select_callback(int index, void *ctx) {
   //Battle
   else if(index == 1){
     //Fight a randomly generated enemy based on the current difficulty
-    //Character enemy;
-    //enemy.class
+    battle_window = create_battle_window(character);
+    window_stack_push(battle_window, true);
   }
   //Character
   else if(index == 2){    
@@ -186,7 +188,7 @@ void game_menu_create(){
 }
 
 void class_menu_select_callback(int index, void *ctx){
-  character = (Character){index, 0, 0, 0, 0, 4, 4, 4, 0, 0};
+  character = (Character){index, 0, 0, 0, 0, 4, 4, 4, 0, 0, 1};
   levelUp(&character);
   simple_menu_layer_destroy(class_menu_layer);
   game_menu_create();    
