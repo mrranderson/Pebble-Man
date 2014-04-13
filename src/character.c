@@ -7,11 +7,11 @@ int getAC(Character c) {
 
 int getDamage(Character c) {
   if (c.class == 0)
-    c.damage = c.p / 2;
+    c.damage = c.p / 3;
   else if (c.class == 1)
-    c.damage = c.d / 2;
+    c.damage = c.d / 3;
   else
-    c.damage = c.s / 2;
+    c.damage = c.s / 3;
   return c.damage;
 }
 
@@ -56,7 +56,7 @@ char* getSkill(Character c, int i) {
     f[4] = "Spellthief";
     f[6] = "Evasion";
     f[8] = "Disable";
-    f[10] = "Assassinate";
+    f[10] = "Shadow Strike";
   }
   else {
     f[1] = "Magic Missle";

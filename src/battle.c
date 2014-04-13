@@ -71,6 +71,165 @@ void battle_menu_select_callback(int index, void *ctx){
       }
     }
   }
+  else if (index == 2) {
+    if(character.class == 0){
+      if(character.mana >= 3){
+        character.mana -= 3;
+        int dam = character.damage/2 - enemy.ac;
+        if(dam < 1)
+          dam = 1;
+        enemy.health -= dam;
+        character.health += character.p/4;
+      }
+    }
+    else if(character.class == 1){
+      if(character.mana >= 2){
+        character.mana -= 2;
+        enemy.ac -= character.d/5;
+        int dam = character.d/4 - enemy.ac;
+        if(dam < 1)
+          dam = 1;
+        enemy.health -= dam;
+      }
+    }
+    else if(character.class == 2){
+      if(character.mana >= 3){
+        character.mana -= 3;
+        int dam = character.s/2 - enemy.ac;
+        if(dam < 1)
+          dam = 1;
+        enemy.health -= dam;
+      }
+    }
+  }
+  else if (index == 3) {
+    character.damage += character.level/3;
+  }
+  else if (index == 4) {
+    if(character.class == 0){
+      if(character.mana >= 3){
+        character.mana -= 3;
+        character.damage += character.p/4;
+        int dam = character.damage - enemy.ac;
+        if(dam < 1)
+          dam = 1;
+        enemy.health -= dam;
+      }
+    }
+    else if(character.class == 1){
+      if(character.mana >= 1){
+        character.mana -= 1;
+        character.mana += character.d/4;
+        enemy.mana -= character.d/4;
+      }
+    }
+    else if(character.class == 2){
+      if(character.mana >= 4){
+        character.mana -= 4;
+        int dam = character.s/5 - enemy.ac;
+        if(dam < 1)
+          dam = 1;
+        character.health += dam;
+        enemy.health -= dam;
+      }
+    }
+  }
+  else if (index == 5) {
+    character.mana += character.level/2;
+  }
+  else if (index == 6) {
+    if(character.class == 0){
+      if(character.mana >= 5){
+        character.mana -= 5;
+        character.ac += character.p/2;
+      }
+    }
+    else if(character.class == 1){
+      if(character.mana >= 5){
+        character.mana -= 5;
+        character.ac += character.d/2;
+        character.health += character.ac;
+      }
+    }
+    else if(character.class == 2){
+      if(character.mana >= 5){
+        character.mana -= 5;
+        character.health += character.s/2;
+      }
+    }
+  }
+  else if (index == 7) {
+    character.health += character.level/2;
+  }
+  else if (index == 8) {
+    if(character.class == 0){
+      if(character.mana >= 5){
+        character.mana -= 5;
+        int temp = backup.health - character.health;
+        if (temp < 1)
+          temp = 1;
+        int dam = temp + character.p/2 - enemy.ac;
+          if (dam < 1)
+            dam = 1;
+        enemy.health -= dam;
+      }
+    }
+    else if(character.class == 1){
+      if(character.mana >= 2){
+        character.mana -= 2;
+        enemy.p -= character.d/4;
+        enemy.d -= character.d/4;
+        enemy.s -= character.d/4;
+      }
+    }
+    else if(character.class == 2){
+      if(character.mana >= 6){
+        character.mana -= 6;
+        int dam = character.s/3 - enemy.ac;
+        if(dam < 1)
+          dam = 1;
+        dam *= 3;
+        enemy.health -= dam;
+      }
+    }
+  }
+  else if (index == 9) {
+    character.d += character.level/2;
+    character.p += character.level/2;
+    character.s += character.level/2;
+  }
+  else if (index == 10) {
+    if(character.class == 0){
+      if(character.mana >= 8){
+        character.mana -= 8;
+        int dam = character.p - (enemy.ac)*2;
+        if(dam < 1)
+          dam = 1;
+        enemy.health -= dam;
+      }
+    }
+    else if(character.class == 1){
+      if(character.mana >= 8){
+        character.mana -= 8;
+        int dam = character.d/3;
+        if (dam < 1)
+          dam = 1;
+        character.p += character.d/4;
+        character.d += character.d/4;
+        character.s += character.d/4;
+        enemy.health -= dam;
+      }
+    }
+    else if(character.class == 2){
+      if(character.mana >= 8){
+        character.mana -= 8;
+        int dam = character.s/2;
+        if(dam < 1)
+          dam = 1;
+        enemy.health -= dam;
+      }
+    }
+  }
   
   if(enemy.health <= 0){
     restore(&character, &backup);
