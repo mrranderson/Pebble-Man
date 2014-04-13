@@ -17,6 +17,7 @@ SimpleMenuItem battle_menu_items[NUM_BATTLE_MENU_ITEMS];
 char* my_text;
 char* enemy_text;
 bool showing_my_text;
+char* skills[11];
 
 Character character;
 Character enemy;
@@ -279,124 +280,125 @@ void battle_menu_create(){
   int num_a_items = 0;
   
   // SKILL 0: ATTACK
-  char* a = (char*)malloc(16*sizeof(char));
-  snprintf(a, 16, "%s", getSkill(character, 0));
+  //char* a = (char*)malloc(16*sizeof(char));
+  skills[0] = (char*)malloc(16*sizeof(char*));
+  snprintf(skills[0], 16, "%s", getSkill(character, 0));
   char* sa = (char*)malloc(7*sizeof(char));
   snprintf(sa, 7, "Mana %d", getManaCost(character, 0));
   battle_menu_items[num_a_items++] = (SimpleMenuItem){
-    .title = a,
+    .title = skills[0],
     .subtitle = sa,
     .callback = battle_menu_select_callback,
   };
   //free(a);
   
   // SKILL 1
-  char* b = (char*)malloc(16*sizeof(char));
-  snprintf(b, 16, "%s", getSkill(character, 1));
+  skills[1] = (char*)malloc(16*sizeof(char));
+  snprintf(skills[1], 16, "%s", getSkill(character, 1));
   char* sb = (char*)malloc(7*sizeof(char));
   snprintf(sb, 7, "Mana %d", getManaCost(character, 1));
   battle_menu_items[num_a_items++] = (SimpleMenuItem){
-    .title = b,
+    .title = skills[1],
     .subtitle = sb,
     .callback =  battle_menu_select_callback,
   };
   //free(b);
   
   // SKIL 2
-  char* c = (char*)malloc(16*sizeof(char));
-  snprintf(c, 16, "%s", getSkill(character, 2));
+  skills[2] = (char*)malloc(16*sizeof(char));
+  snprintf(skills[2], 16, "%s", getSkill(character, 2));
   char* sc = (char*)malloc(7*sizeof(char));
   snprintf(sc, 7, "Mana %d", getManaCost(character, 2));
   battle_menu_items[num_a_items++] = (SimpleMenuItem){
-    .title = c,
+    .title = skills[2],
     .subtitle = sc,
     .callback = battle_menu_select_callback,
   };
   
   // SKILL 3
-  char* d = (char*)malloc(16*sizeof(char));
-  snprintf(d, 16, "%s", getSkill(character, 3));
+  skills[3] = (char*)malloc(16*sizeof(char));
+  snprintf(skills[3], 16, "%s", getSkill(character, 3));
   char* sd = (char*)malloc(7*sizeof(char));
   snprintf(sd, 7, "Mana %d", getManaCost(character, 3));
   battle_menu_items[num_a_items++] = (SimpleMenuItem){
-    .title = d,
+    .title = skills[3],
     .subtitle = sd,
     .callback = battle_menu_select_callback,
   };
   
   // SKILL 4
-  char* e = (char*)malloc(16*sizeof(char));
-  snprintf(e, 16, "%s", getSkill(character, 4));
+  skills[4] = (char*)malloc(16*sizeof(char));
+  snprintf(skills[4], 16, "%s", getSkill(character, 4));
   char* se = (char*)malloc(7*sizeof(char));
   snprintf(se, 7, "Mana %d", getManaCost(character, 4));
   battle_menu_items[num_a_items++] = (SimpleMenuItem){
-    .title = e,
+    .title = skills[4],
     .subtitle = se,
     .callback = battle_menu_select_callback,
   };
   
   // SKILL 5
-  char* f = (char*)malloc(16*sizeof(char));
-  snprintf(f, 16, "%s", getSkill(character, 5));
+  skills[5] = (char*)malloc(16*sizeof(char));
+  snprintf(skills[5], 16, "%s", getSkill(character, 5));
   char* sf = (char*)malloc(7*sizeof(char));
   snprintf(sf, 7, "Mana %d", getManaCost(character, 5));
   battle_menu_items[num_a_items++] = (SimpleMenuItem){
-    .title = f,
+    .title = skills[5],
     .subtitle = sf,
     .callback = battle_menu_select_callback,
   };
   
   // SKILL 6
-  char* g = (char*)malloc(16*sizeof(char));
-  snprintf(g, 16, "%s", getSkill(character, 6));
+  skills[6] = (char*)malloc(16*sizeof(char));
+  snprintf(skills[6], 16, "%s", getSkill(character, 6));
   char* sg = (char*)malloc(7*sizeof(char));
   snprintf(sg, 7, "Mana %d", getManaCost(character, 6));
   battle_menu_items[num_a_items++] = (SimpleMenuItem){
-    .title = g,
+    .title = skills[6],
     .subtitle = sg,
     .callback = battle_menu_select_callback,
   };
   
   // SKILL 7
-  char* h = (char*)malloc(16*sizeof(char));
-  snprintf(h, 16, "%s", getSkill(character, 7));
+  skills[7] = (char*)malloc(16*sizeof(char));
+  snprintf(skills[7], 16, "%s", getSkill(character, 7));
   char* sh = (char*)malloc(7*sizeof(char));
   snprintf(sh, 7, "Mana %d", getManaCost(character, 7));
   battle_menu_items[num_a_items++] = (SimpleMenuItem){
-    .title = h,
+    .title = skills[7],
     .subtitle = sh,
     .callback = battle_menu_select_callback,
   };
   
   // SKILL 8
-  char* i = (char*)malloc(16*sizeof(char));
-  snprintf(i, 16, "%s", getSkill(character, 8));
+  skills[8] = (char*)malloc(16*sizeof(char));
+  snprintf(skills[8], 16, "%s", getSkill(character, 8));
   char* si = (char*)malloc(7*sizeof(char));
   snprintf(si, 7, "Mana %d", getManaCost(character, 8));
   battle_menu_items[num_a_items++] = (SimpleMenuItem){
-    .title = i,
+    .title = skills[8],
     .subtitle = si,
     .callback = battle_menu_select_callback,
   };
   
   // SKILL 9
-  char* j = (char*)malloc(16*sizeof(char));
-  snprintf(j, 16, "%s", getSkill(character, 9));
+  skills[9] = (char*)malloc(16*sizeof(char));
+  snprintf(skills[9], 16, "%s", getSkill(character, 9));
   char* sj = (char*)malloc(7*sizeof(char));
   snprintf(sj, 7, "Mana %d", getManaCost(character, 9));
   battle_menu_items[num_a_items++] = (SimpleMenuItem){
-    .title = j,
+    .title = skills[9],
     .subtitle = sj,
     .callback = battle_menu_select_callback,
   };
   
   // SKILL 10
-  char* k = (char*)malloc(16*sizeof(char));
-  snprintf(k, 16, "%s", getSkill(character, 10));
+  skills[10] = (char*)malloc(16*sizeof(char));
+  snprintf(skills[10], 16, "%s", getSkill(character, 10));
   char* sk = (char*)malloc(7*sizeof(char));
   snprintf(sk, 7, "Mana %d", getManaCost(character, 10));
   battle_menu_items[num_a_items++] = (SimpleMenuItem){
-    .title = k,
+    .title = skills[10],
     .subtitle = sk,
     .callback = battle_menu_select_callback,
   };
@@ -505,6 +507,11 @@ Character generate_enemy(){
 
 void deinit_skill_window(){
   simple_menu_layer_destroy(battle_menu_layer);
+  int x;
+  for(x = 0; x <= 10; x++){
+    free(skills[x]);
+  }
+  //free(skills);
   window_destroy(skill_window);
 }
 

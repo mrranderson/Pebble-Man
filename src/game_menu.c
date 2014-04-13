@@ -116,11 +116,11 @@ void game_menu_select_callback(int index, void *ctx) {
     
     character_text_layer = text_layer_create(max_text_bounds);
     char* h = (char*)malloc(256*sizeof(char));
-    snprintf(h, 256, "ME\n%s-%d\nHP: %d  Mana: %d\nP: %d   D: %d   S: %d\nAC: %d \nDam: %d \n------------------------\nAbilities: \n%s \n%s \n%s \n%s \n%s \n%s \n%s \n%s \n%s \n%s", 
+    snprintf(h, 256, "ME\n%s-%d\nHP: %d  Mana: %d\nP: %d   D: %d   S: %d\nAC: %d \nDam: %d \n------------------------\nAbilities: \n%s \n%s \n%s \n%s \n%s \n%s \n%s \n%s \n%s \n%s \n%s", 
              setClassname(character), character.level, character.health, character.mana, character.p, character.d, character.s,
              character.ac, character.damage,
              getSkill(character, 0), getSkill(character, 1), getSkill(character, 2), getSkill(character, 3), getSkill(character, 4), 
-             getSkill(character, 5), getSkill(character, 6), getSkill(character, 7), getSkill(character, 8), getSkill(character, 9));
+             getSkill(character, 5), getSkill(character, 6), getSkill(character, 7), getSkill(character, 8), getSkill(character, 9), getSkill(character, 10));
     text_layer_set_text(character_text_layer, h);
     text_layer_set_font(character_text_layer, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
 	  text_layer_set_text_alignment(character_text_layer, GTextAlignmentLeft);
