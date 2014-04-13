@@ -31,56 +31,65 @@ void battle_menu_create(){
   int num_a_items = 0;
   
   // SKILL 0: ATTACK
-  char* h = (char*)malloc(16*sizeof(char));
-  snprintf(h, 16, "%s", getSkill(character, 0));
+  char* a = (char*)malloc(16*sizeof(char));
+  snprintf(a, 16, "%s", getSkill(character, 0));
   battle_menu_items[num_a_items++] = (SimpleMenuItem){
-    .title = h,
+    .title = a,
     .callback = battle_menu_select_callback,
   };
+  //free(a);
   
   // SKILL 1
-  snprintf(h, 16, "%s", getSkill(character, 1));
+  char* b = (char*)malloc(16*sizeof(char));
+  snprintf(b, 16, "%s", getSkill(character, 1));
   battle_menu_items[num_a_items++] = (SimpleMenuItem){
-    .title = h,
+    .title = b,
     .callback =  battle_menu_select_callback,
   };
+  //free(b);
   
   // SKIL 2
-  snprintf(h, 16, "%s", getSkill(character, 2));
+  char* c = (char*)malloc(16*sizeof(char));
+  snprintf(c, 16, "%s", getSkill(character, 2));
   battle_menu_items[num_a_items++] = (SimpleMenuItem){
-    .title = h,
+    .title = c,
     .callback = battle_menu_select_callback,
   };
   
   // SKILL 3
-  snprintf(h, 16, "%s", getSkill(character, 3));
+  char* d = (char*)malloc(16*sizeof(char));
+  snprintf(d, 16, "%s", getSkill(character, 3));
   battle_menu_items[num_a_items++] = (SimpleMenuItem){
-    .title = h,
+    .title = d,
     .callback = battle_menu_select_callback,
   };
   
   // SKILL 4
-  snprintf(h, 16, "%s", getSkill(character, 4));
+  char* e = (char*)malloc(16*sizeof(char));
+  snprintf(e, 16, "%s", getSkill(character, 4));
   battle_menu_items[num_a_items++] = (SimpleMenuItem){
-    .title = h,
+    .title = e,
     .callback = battle_menu_select_callback,
   };
   
   // SKILL 5
-  snprintf(h, 16, "%s", getSkill(character, 5));
+  char* f = (char*)malloc(16*sizeof(char));
+  snprintf(f, 16, "%s", getSkill(character, 5));
   battle_menu_items[num_a_items++] = (SimpleMenuItem){
-    .title = h,
+    .title = f,
     .callback = battle_menu_select_callback,
   };
   
   // SKILL 6
-  snprintf(h, 16, "%s", getSkill(character, 6));
+  char* g = (char*)malloc(16*sizeof(char));
+  snprintf(g, 16, "%s", getSkill(character, 6));
   battle_menu_items[num_a_items++] = (SimpleMenuItem){
-    .title = h,
+    .title = g,
     .callback = battle_menu_select_callback,
   };
   
   // SKILL 7
+  char* h = (char*)malloc(16*sizeof(char));
   snprintf(h, 16, "%s", getSkill(character, 7));
   battle_menu_items[num_a_items++] = (SimpleMenuItem){
     .title = h,
@@ -88,23 +97,26 @@ void battle_menu_create(){
   };
   
   // SKILL 8
-  snprintf(h, 16, "%s", getSkill(character, 8));
+  char* i = (char*)malloc(16*sizeof(char));
+  snprintf(i, 16, "%s", getSkill(character, 8));
   battle_menu_items[num_a_items++] = (SimpleMenuItem){
-    .title = h,
+    .title = i,
     .callback = battle_menu_select_callback,
   };
   
   // SKILL 9
-  snprintf(h, 16, "%s", getSkill(character, 9));
+  char* j = (char*)malloc(16*sizeof(char));
+  snprintf(j, 16, "%s", getSkill(character, 9));
   battle_menu_items[num_a_items++] = (SimpleMenuItem){
-    .title = h,
+    .title = j,
     .callback = battle_menu_select_callback,
   };
   
   // SKILL 10
-  snprintf(h, 16, "%s", getSkill(character, 10));
+  char* k = (char*)malloc(16*sizeof(char));
+  snprintf(k, 16, "%s", getSkill(character, 10));
   battle_menu_items[num_a_items++] = (SimpleMenuItem){
-    .title = h,
+    .title = k,
     .callback = battle_menu_select_callback,
   };
   
