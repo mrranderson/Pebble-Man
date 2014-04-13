@@ -19,3 +19,4 @@ char* setClassname(Character c);
 void levelUp(Character* c);
 char* getSkill(Character c, int i);
 void restore(Character* original, Character* backup);
+int getManaCost(Character c, int i);

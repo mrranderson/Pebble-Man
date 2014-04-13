@@ -281,8 +281,11 @@ void battle_menu_create(){
   // SKILL 0: ATTACK
   char* a = (char*)malloc(16*sizeof(char));
   snprintf(a, 16, "%s", getSkill(character, 0));
+  char* sa = (char*)malloc(7*sizeof(char));
+  snprintf(sa, 7, "Mana %d", getManaCost(character, 0));
   battle_menu_items[num_a_items++] = (SimpleMenuItem){
     .title = a,
+    .subtitle = sa,
     .callback = battle_menu_select_callback,
   };
   //free(a);
@@ -290,8 +293,11 @@ void battle_menu_create(){
   // SKILL 1
   char* b = (char*)malloc(16*sizeof(char));
   snprintf(b, 16, "%s", getSkill(character, 1));
+  char* sb = (char*)malloc(7*sizeof(char));
+  snprintf(sb, 7, "Mana %d", getManaCost(character, 1));
   battle_menu_items[num_a_items++] = (SimpleMenuItem){
     .title = b,
+    .subtitle = sb,
     .callback =  battle_menu_select_callback,
   };
   //free(b);
@@ -299,72 +305,99 @@ void battle_menu_create(){
   // SKIL 2
   char* c = (char*)malloc(16*sizeof(char));
   snprintf(c, 16, "%s", getSkill(character, 2));
+  char* sc = (char*)malloc(7*sizeof(char));
+  snprintf(sc, 7, "Mana %d", getManaCost(character, 2));
   battle_menu_items[num_a_items++] = (SimpleMenuItem){
     .title = c,
+    .subtitle = sc,
     .callback = battle_menu_select_callback,
   };
   
   // SKILL 3
   char* d = (char*)malloc(16*sizeof(char));
   snprintf(d, 16, "%s", getSkill(character, 3));
+  char* sd = (char*)malloc(7*sizeof(char));
+  snprintf(sd, 7, "Mana %d", getManaCost(character, 3));
   battle_menu_items[num_a_items++] = (SimpleMenuItem){
     .title = d,
+    .subtitle = sd,
     .callback = battle_menu_select_callback,
   };
   
   // SKILL 4
   char* e = (char*)malloc(16*sizeof(char));
   snprintf(e, 16, "%s", getSkill(character, 4));
+  char* se = (char*)malloc(7*sizeof(char));
+  snprintf(se, 7, "Mana %d", getManaCost(character, 4));
   battle_menu_items[num_a_items++] = (SimpleMenuItem){
     .title = e,
+    .subtitle = se,
     .callback = battle_menu_select_callback,
   };
   
   // SKILL 5
   char* f = (char*)malloc(16*sizeof(char));
   snprintf(f, 16, "%s", getSkill(character, 5));
+  char* sf = (char*)malloc(7*sizeof(char));
+  snprintf(sf, 7, "Mana %d", getManaCost(character, 5));
   battle_menu_items[num_a_items++] = (SimpleMenuItem){
     .title = f,
+    .subtitle = sf,
     .callback = battle_menu_select_callback,
   };
   
   // SKILL 6
   char* g = (char*)malloc(16*sizeof(char));
   snprintf(g, 16, "%s", getSkill(character, 6));
+  char* sg = (char*)malloc(7*sizeof(char));
+  snprintf(sg, 7, "Mana %d", getManaCost(character, 6));
   battle_menu_items[num_a_items++] = (SimpleMenuItem){
     .title = g,
+    .subtitle = sg,
     .callback = battle_menu_select_callback,
   };
   
   // SKILL 7
   char* h = (char*)malloc(16*sizeof(char));
   snprintf(h, 16, "%s", getSkill(character, 7));
+  char* sh = (char*)malloc(7*sizeof(char));
+  snprintf(sh, 7, "Mana %d", getManaCost(character, 7));
   battle_menu_items[num_a_items++] = (SimpleMenuItem){
     .title = h,
+    .subtitle = sh,
     .callback = battle_menu_select_callback,
   };
   
   // SKILL 8
   char* i = (char*)malloc(16*sizeof(char));
   snprintf(i, 16, "%s", getSkill(character, 8));
+  char* si = (char*)malloc(7*sizeof(char));
+  snprintf(si, 7, "Mana %d", getManaCost(character, 8));
   battle_menu_items[num_a_items++] = (SimpleMenuItem){
     .title = i,
+    .subtitle = si,
     .callback = battle_menu_select_callback,
   };
   
   // SKILL 9
   char* j = (char*)malloc(16*sizeof(char));
   snprintf(j, 16, "%s", getSkill(character, 9));
+  char* sj = (char*)malloc(7*sizeof(char));
+  snprintf(sj, 7, "Mana %d", getManaCost(character, 9));
   battle_menu_items[num_a_items++] = (SimpleMenuItem){
     .title = j,
+    .subtitle = sj,
     .callback = battle_menu_select_callback,
   };
   
   // SKILL 10
   char* k = (char*)malloc(16*sizeof(char));
   snprintf(k, 16, "%s", getSkill(character, 10));
+  char* sk = (char*)malloc(7*sizeof(char));
+  snprintf(sk, 7, "Mana %d", getManaCost(character, 10));
   battle_menu_items[num_a_items++] = (SimpleMenuItem){
     .title = k,
+    .subtitle = sk,
     .callback = battle_menu_select_callback,
   };
   

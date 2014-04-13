@@ -69,6 +69,35 @@ char* getSkill(Character c, int i) {
   return f[i];
 }
 
+int getManaCost(Character c, int i) {
+  char f[11] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+  if (c.class == 0) {
+    f[1] = 3;
+    f[2] = 3;
+    f[4] = 3;
+    f[6] = 5;
+    f[8] = 5;
+    f[10] = 8;
+  }
+  else if (c.class == 1) {
+    f[1] = 2;
+    f[2] = 2;
+    f[4] = 1;
+    f[6] = 5;
+    f[8] = 2;
+    f[10] = 8;
+  }
+  else {
+    f[1] = 2;
+    f[2] = 3;
+    f[4] = 4;
+    f[6] = 5;
+    f[8] = 6;
+    f[10] = 8;
+  }
+  return f[i];
+}
+
 void restore(Character *original, Character *backup){
   original->health = backup->health;
   original->mana = backup->mana;
