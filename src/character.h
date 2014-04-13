@@ -18,3 +18,4 @@ int getDamage(Character c);
 char* setClassname(Character c);
 void levelUp(Character* c);
 char* getSkill(Character c, int i);
+void restore(Character* original, Character* backup);

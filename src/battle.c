@@ -19,11 +19,100 @@ char* enemy_text;
 bool showing_my_text;
 
 Character character;
+Character enemy;
+Character backup;
 
 void battle_menu_select_callback(int index, void *ctx){
+  if(enemy.d > character.d){
+    int hurt = enemy.damage - character.ac;
+    if(hurt < 1)
+      hurt = 1;
+    character.health -= hurt;
+    if(character.health <= 0){
+      restore(&character, &backup);
+      character.health++;
+      character.xp = 0;
+      //deinit_skill_window();
+      //deinit_battle_window();
+      //window_stack_pop(true);
+      text_layer_set_text(battle_text_layer, "You died.\nLose all current experience.");
+      window_set_click_config_provider(window, exit_config_provider);
+      restore(&backup, &character);
+    }
+  }
+  
   if(index == 0){
+    int dam = character.damage - enemy.ac;
+    if(dam < 1)
+      dam = 1;
+    enemy.health -= dam;
+  }
+  else if(index == 1){
+    if(character.class == 0){
+      if(character.mana >= 3){
+        character.mana -= 3;
+        int dam = character.damage - enemy.ac;
+        if(dam < 1)
+          dam = 1;
+        dam *= 2;
+        enemy.health -= dam;
+      }      
+    }
+    else if(character.class == 1){
+      if(character.mana >= 2){
+        character.mana -= 2;
+        enemy.damage -= character.d/5;
+      }
+    }
+    else if(character.class == 2){
+      if(character.mana >= 2){
+        character.mana -= 2;
+        enemy.health -= character.s/5;
+      }
+    }
+  }
+  
+  if(enemy.health <= 0){
+    restore(&character, &backup);
+    character.health++;
+    character.xp += enemy.xp;
+    if(character.xp >= 100*character.level){
+      character.xp -= 100*character.level;
+      levelUp(&character);
+    }
+    text_layer_set_text(battle_text_layer, "You Win.\nGain some experience.");
+    window_set_click_config_provider(window, exit_config_provider);
+    restore(&backup, &character);
+  }
+
+  
+  if(enemy.d <= character.d){
+    int hurt = enemy.damage - character.ac;
+    if(hurt < 1)
+      hurt = 1;
+    character.health -= hurt;
+    if(character.health <= 0){
+      restore(&character, &backup);
+      character.health++;
+      character.xp = 0;
+      //deinit_skill_window();
+      //deinit_battle_window();
+      //window_stack_pop(true);
+      text_layer_set_text(battle_text_layer, "You died.\nLose all current experience.");
+      window_set_click_config_provider(window, exit_config_provider);
+      restore(&backup, &character);
+    }
     
   }
+  
+  snprintf(my_text, 256, "%s   %s-%d\n------------------------\nHP: %d  Mana: %d\nP: %d   D: %d   S: %d\nAC: %d   Damage: %d\n\n\n", 
+          "Pebble", setClassname(character), character.level, character.health, character.mana, character.p, character.d, character.s,  
+           character.ac, character.damage);
+
+  snprintf(enemy_text, 256, "%s   %s-%d\n------------------------\nHP: %d  Mana: %d\nP: %d   D: %d   S: %d\nAC: %d   Damage: %d\n\n\n", 
+           "Enemy", setClassname(enemy), enemy.level, enemy.health, enemy.mana, enemy.p, enemy.d, enemy.s, enemy.ac, enemy.damage);
+
+    window_stack_pop(true);
 }
 
 void battle_menu_create(){  
@@ -149,21 +238,32 @@ void battle_select_click_handler(ClickRecognizerRef recognizer, void *context){
     //.disappear = window_disappear,
     .unload = deinit_skill_window
   });
+  
 
   battle_menu_create();
   layer_add_child(window_get_root_layer(skill_window), simple_menu_layer_get_layer(battle_menu_layer));
   window_stack_push(skill_window, true);
 }
 
+void exit_click_handler(ClickRecognizerRef recognizer, void *context){
+    window_stack_pop(true);
+}
+
+
 void battle_config_provider(void *context) {
   window_single_click_subscribe(BUTTON_ID_UP, up_click_handler);
   window_single_click_subscribe(BUTTON_ID_SELECT, battle_select_click_handler);
  }
   
+void exit_config_provider(void *context){
+  window_single_click_subscribe(BUTTON_ID_UP, exit_click_handler);
+  window_single_click_subscribe(BUTTON_ID_SELECT, exit_click_handler);
+}
 
 
 Window* create_battle_window(Character c){
   character = c;
+  backup = c;
   window = window_create();
   window_set_window_handlers(window, (WindowHandlers) {
         //.load = window_load,
@@ -172,7 +272,7 @@ Window* create_battle_window(Character c){
         .unload = deinit_battle_window
     });
   
-  Character enemy = (Character)generate_enemy(character);
+  enemy = (Character)generate_enemy(character);
   Layer *window_layer = window_get_root_layer(window);
   GRect bounds = layer_get_frame(window_layer);
 
@@ -203,7 +303,7 @@ Character generate_enemy(){
   Character enemy;
   int eclass = rand()%3;
   int elevel = character.difficulty;
-  int pds = 1+elevel;
+  int pds = 2+elevel;
   enemy = (Character){eclass, elevel, 10+5*character.difficulty, 0, 0, pds, pds, pds, 0, 0, 0};
   levelUp(&enemy);
   

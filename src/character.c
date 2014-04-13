@@ -69,4 +69,14 @@ char* getSkill(Character c, int i) {
   return f[i];
 }
 
+void restore(Character *original, Character *backup){
+  original->health = backup->health;
+  original->mana = backup->mana;
+  original->p = backup->p;
+  original->s = backup->s;
+  original->d = backup->d;
+  original->damage = backup->damage;
+  original->ac = backup->ac;
+}
+
 

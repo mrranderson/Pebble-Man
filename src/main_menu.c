@@ -4,7 +4,7 @@
 #include "character.h"
   
 #define NUM_MENU_SECTIONS 1
-#define NUM_MAIN_MENU_ITEMS 4
+#define NUM_MAIN_MENU_ITEMS 3
 
   
 Window *window;
@@ -53,18 +53,18 @@ void menu_select_callback(int index, void *ctx) {
     game_window = window_create();
     TextLayer *help_text_layer = text_layer_create(GRect(0, 0, 144, 154));
 
-    text_layer_set_text(help_text_layer, "This is a help screen!\nFuck you!");
+    text_layer_set_text(help_text_layer, "Please consult \n\nhttp://bit.ly/ \nrpebbleg");
 	  text_layer_set_font(help_text_layer, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
 	  text_layer_set_text_alignment(help_text_layer, GTextAlignmentCenter);
 
 	  layer_add_child(window_get_root_layer(game_window), text_layer_get_layer(help_text_layer));
   }
   //Settings
-  else if(index == 3){
+  //else if(index == 3){
     //launch new window
     //come up with some settings
     
-  }
+  //}
   else{
     
   }
@@ -95,10 +95,10 @@ void main_menu_create(){
     //.icon = menu_icon_image,
   };
   
-  main_menu_items[num_a_items++] = (SimpleMenuItem){
-    .title = "Settings",
-    .callback = menu_select_callback,
-  };
+  //main_menu_items[num_a_items++] = (SimpleMenuItem){
+  //  .title = "Settings",
+  //  .callback = menu_select_callback,
+  //};
   
   menu_sections[0] = (SimpleMenuSection){
     .num_items = NUM_MAIN_MENU_ITEMS,
