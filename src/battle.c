@@ -265,6 +265,11 @@ void battle_menu_select_callback(int index, void *ctx){
     
   }
   
+  free(my_text);
+  free(enemy_text);
+  my_text = (char*)malloc(256*sizeof(char));
+  enemy_text = (char*)malloc(256*sizeof(char));
+  
   snprintf(my_text, 256, "%s   %s-%d\n------------------------\nHP: %d  Mana: %d\nP: %d   D: %d   S: %d\nAC: %d   Damage: %d\n\n\n", 
           "Pebble", setClassname(character), character.level, character.health, character.mana, character.p, character.d, character.s,  
            character.ac, character.damage);
@@ -272,7 +277,7 @@ void battle_menu_select_callback(int index, void *ctx){
   snprintf(enemy_text, 256, "%s   %s-%d\n------------------------\nHP: %d  Mana: %d\nP: %d   D: %d   S: %d\nAC: %d   Damage: %d\n\n\n", 
            "Enemy", setClassname(enemy), enemy.level, enemy.health, enemy.mana, enemy.p, enemy.d, enemy.s, enemy.ac, enemy.damage);
 
-    window_stack_pop(true);
+  window_stack_pop(true);
 }
 
 void battle_menu_create(){  
@@ -407,7 +412,24 @@ void battle_menu_create(){
     .num_items = NUM_BATTLE_MENU_ITEMS,
     .items = battle_menu_items,
   };
-
+  
+  free(sa);
+  free(sb);
+  free(sc);
+  free(sd);
+  free(se);
+  free(sf);
+  free(sg);
+  free(sh);
+  free(si);
+  free(sj);
+  free(sk);
+  /*
+  int x;
+  for(x = 0; x <= 10; x++){
+    free(skills[x]);
+  }
+  */
   battle_menu_layer = simple_menu_layer_create(bounds, skill_window, battle_menu_sections, NUM_BATTLE_MENU_SECTIONS, NULL);
 }
 
@@ -500,22 +522,24 @@ Character generate_enemy(){
   int pds = 2+elevel;
   enemy = (Character){eclass, elevel, 10+5*character.difficulty, 0, 0, pds, pds, pds, 0, 0, 0};
   levelUp(&enemy);
-  
-  //if dead xp - 2*xp_reward  
   return enemy;
 }
 
 void deinit_skill_window(){
   simple_menu_layer_destroy(battle_menu_layer);
+  
   int x;
   for(x = 0; x <= 10; x++){
     free(skills[x]);
   }
+  
   //free(skills);
   window_destroy(skill_window);
 }
 
 void deinit_battle_window(){
+  free(my_text);
+  free(enemy_text);
   text_layer_destroy(battle_text_layer);
   window_destroy(window);
 }

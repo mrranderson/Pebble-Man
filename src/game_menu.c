@@ -155,8 +155,9 @@ void game_menu_select_callback(int index, void *ctx) {
         //.disappear = window_disappear,
         .unload = deinit_character_window,
     });
-
+    free(h);
     window_stack_push(character_window, true);
+    //free(h);
   }
   //Settings
   else if(index == 3){
