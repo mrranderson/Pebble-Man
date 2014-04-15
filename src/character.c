@@ -59,7 +59,7 @@ char* getSkill(Character c, int i) {
     f[10] = "Shadow Strike";
   }
   else {
-    f[1] = "Magic Missle";
+    f[1] = "Magic Missile";
     f[2] = "Rock Blast";
     f[4] = "Absorb";
     f[6] = "Mana Shield";
